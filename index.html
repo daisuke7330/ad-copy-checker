@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>広告原稿 表記チェッカー</title>
+<meta name="description" content="広告やLPの原稿を貼るだけで、機種依存文字・半角カナ・全角英数の混在・税込表記の漏れ・注意が要る表現をまとめてチェックします。文章は外部に送信しません。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>広告原稿 表記チェッカー</h1>
+  <p>原稿を貼るだけで、入稿前に直したい表記をまとめて見つけます。文章はこのブラウザの中だけで調べ、どこにも送信しません。</p>
+</header>
+<main>
+  <section class="pane">
+    <div class="bar">
+      <label for="src">原稿</label>
+      <span class="count" id="count"></span>
+      <button class="sub" id="btnSample" type="button">見本の原稿を入れる</button>
+      <button class="sub" id="btnClear" type="button">消す</button>
+    </div>
+    <textarea id="src" spellcheck="false" placeholder="ここに原稿を貼り付けてください（入力するとすぐにチェックします）"></textarea>
+    <div class="bar">
+      <button class="main" id="btnFix" type="button" disabled>自動で直せるものを直した原稿をコピー</button>
+      <span class="msg" id="msg"></span>
+    </div>
+  </section>
+
+  <section class="pane">
+    <div class="bar"><span class="label">チェック結果</span><span class="summary" id="summary"></span></div>
+    <div class="filters" id="filters"></div>
+    <div class="view" id="view" aria-live="polite"></div>
+    <ol class="list" id="list"></ol>
+  </section>
+</main>
+<footer>
+  <p>「注意が要る表現」は、言い換えを検討するきっかけです。使ってよいかの最終判断は、媒体の考査や社内のルールに従ってください。</p>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
