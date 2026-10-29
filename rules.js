@@ -34,7 +34,7 @@ const PRICE = /(?:[\d０-９][\d０-９,，]*)\s?円/g;
 const TAX = /税込|税抜|税別|内税|外税|（税|\(税|税\d|消費税/;
 
 const isZenAlnum = c => /[０-９Ａ-Ｚａ-ｚ]/.test(c);
-export const toHanAlnum = s => s.replace(/[０-９Ａ-Ｚａ-ｚ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
+export const toHanAlnum = s => s.replace(/[０-９Ａ-Ｚａ-ｚ．，]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
 
 export const KINDS = {
   dep: { label: '機種依存文字', fix: true },
@@ -56,7 +56,7 @@ export function check(text) {
   for (const m of text.matchAll(/[ｦ-ﾟ｡-･]+/g)) add('hkana', m.index, m.index + m[0].length, '半角カナは媒体によって使えません', toZenkana(m[0]));
   // 全角英数字：本文に半角英数字もある時だけ「混在」として出す（全部全角でそろえている原稿は対象外）
   const hasHan = /[0-9A-Za-z]/.test(text);
-  if (hasHan) for (const m of text.matchAll(/[０-９Ａ-Ｚａ-ｚ]+/g)) add('alnum', m.index, m.index + m[0].length, '半角の英数字と混ざっています。どちらかにそろえてください', toHanAlnum(m[0]));
+  if (hasHan) for (const m of text.matchAll(/[０-９Ａ-Ｚａ-ｚ](?:[０-９Ａ-Ｚａ-ｚ．，]*[０-９Ａ-Ｚａ-ｚ])?/g)) add('alnum', m.index, m.index + m[0].length, '半角の英数字と混ざっています。どちらかにそろえてください', toHanAlnum(m[0]));
   for (const m of text.matchAll(/[ 　]+$/gm)) add('space', m.index, m.index + m[0].length, '行末に空白があります', '');
   for (const m of text.matchAll(/ {2,}|　{2,}/g)) add('space', m.index, m.index + m[0].length, '空白が続いています', m[0][0]);
   let pos = 0;

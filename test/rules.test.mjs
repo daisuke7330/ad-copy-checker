@@ -17,6 +17,7 @@ test('半角カナは濁点・半濁点ごと全角にする', () => {
 test('全角英数字は半角と混ざっている時だけ指摘する', () => {
   assert.ok(kinds('１日2粒').includes('alnum'));
   assert.ok(!kinds('１日２粒').includes('alnum'));
+  assert.deepEqual(check('業界Ｎｏ．１ 2粒 ３，０００').filter(r => r.kind === 'alnum').map(r => r.to), ['No.1', '3,000']);
 });
 
 test('税込・税抜のない価格を行ごとに指摘する', () => {

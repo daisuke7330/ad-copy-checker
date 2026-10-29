@@ -60,7 +60,8 @@ $('btnClear').onclick = () => { $('src').value = ''; render(); $('src').focus();
 $('btnFix').onclick = async () => {
   const fixed = autofix($('src').value);
   try {
-    await navigator.clipboard.writeText(fixed);
+    // 許可待ちのまま止まることがあるので、2秒で諦めて下の方法に切り替える
+    await Promise.race([navigator.clipboard.writeText(fixed), new Promise((_, ng) => setTimeout(ng, 2000))]);
     $('msg').textContent = 'コピーしました。税込表記・注意が要る表現は自動では直さないので、内容を見て直してください。';
   } catch {
     $('msg').textContent = 'コピーできませんでした。原稿の欄を直した内容に置き換えたので、そこからコピーしてください。';
