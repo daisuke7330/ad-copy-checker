@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>広告原稿 表記チェッカー</title>
-<meta name="description" content="広告やLPの原稿を貼るだけで、機種依存文字・半角カナ・全角英数の混在・税込表記の漏れ・注意が要る表現をまとめてチェックします。文章は外部に送信しません。">
+<meta name="description" content="広告やLPの原稿を貼るだけで、注意が要る表現・定期購入や送料などの条件・税込表記の漏れ・機種依存文字・半角カナなどをまとめてチェックします。回覧の確認にも。文章は外部に送信しません。">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <h1>広告原稿 表記チェッカー</h1>
-  <p>原稿を貼るだけで、入稿前に直したい表記をまとめて見つけます。文章はこのブラウザの中だけで調べ、どこにも送信しません。</p>
+  <p>原稿を貼るだけで、回覧・入稿の前に確かめたい所をまとめて見つけます。文章はこのブラウザの中だけで調べ、どこにも送信しません。</p>
 </header>
 <main>
   <section class="pane">
@@ -20,22 +20,29 @@
       <button class="sub" id="btnSample" type="button">見本の原稿を入れる</button>
       <button class="sub" id="btnClear" type="button">消す</button>
     </div>
-    <textarea id="src" spellcheck="false" placeholder="ここに原稿を貼り付けてください（入力するとすぐにチェックします）"></textarea>
+    <textarea id="src" spellcheck="false" placeholder="ここに原稿を貼り付けてください（入力するとすぐにチェックします）。PDFや紙から写して改行が崩れていても大丈夫です。"></textarea>
+    <div class="bar opts">
+      <span>英数字のそろえ方</span>
+      <label><input type="radio" name="alnum" value="han" checked> 半角（横書き・LP）</label>
+      <label><input type="radio" name="alnum" value="zen"> 全角（縦書き・新聞）</label>
+    </div>
     <div class="bar">
-      <button class="main" id="btnFix" type="button" disabled>自動で直せるものを直した原稿をコピー</button>
+      <button class="main" id="btnFix" type="button" disabled>自動で直る表記を直した原稿をコピー</button>
       <span class="msg" id="msg"></span>
     </div>
+    <p class="hint">非表示にした種類・「無視」した指摘は直しません（表の位置合わせの空白を残したい時など）。</p>
   </section>
 
   <section class="pane">
     <div class="bar"><span class="label">チェック結果</span><span class="summary" id="summary"></span></div>
     <div class="filters" id="filters"></div>
     <div class="view" id="view" aria-live="polite"></div>
+    <button class="sub" id="ignored" type="button" hidden></button>
     <ol class="list" id="list"></ol>
   </section>
 </main>
 <footer>
-  <p>「注意が要る表現」は、言い換えを検討するきっかけです。使ってよいかの最終判断は、媒体の考査や社内のルールに従ってください。</p>
+  <p>「人が見る所」は、確認や言い換えを検討するきっかけです。使ってよいかの最終判断は、媒体の考査や社内のルールに従ってください。</p>
 </footer>
 <script type="module" src="app.js"></script>
 </body>
