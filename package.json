@@ -1,0 +1,6 @@
+{
+  "name": "ad-copy-checker",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test/rules.test.mjs" }
+}
